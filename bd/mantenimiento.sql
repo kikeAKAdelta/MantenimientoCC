@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 13-11-2019 a las 16:14:55
--- Versión del servidor: 10.4.8-MariaDB
--- Versión de PHP: 7.1.33
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 14-11-2019 a las 04:32:39
+-- Versión del servidor: 10.1.28-MariaDB
+-- Versión de PHP: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -52,10 +52,10 @@ CREATE TABLE `herramientas` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `herramientasProcedimiento`
+-- Estructura de tabla para la tabla `herramientasprocedimiento`
 --
 
-CREATE TABLE `herramientasProcedimiento` (
+CREATE TABLE `herramientasprocedimiento` (
   `idProcedimiento` int(11) NOT NULL,
   `idHerramienta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -97,10 +97,10 @@ CREATE TABLE `materiales` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `materialesProcedimiento`
+-- Estructura de tabla para la tabla `materialesprocedimiento`
 --
 
-CREATE TABLE `materialesProcedimiento` (
+CREATE TABLE `materialesprocedimiento` (
   `idProcedimiento` int(11) NOT NULL,
   `codMaterial` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -108,22 +108,24 @@ CREATE TABLE `materialesProcedimiento` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ordenCompra`
+-- Estructura de tabla para la tabla `ordencompra`
 --
 
-CREATE TABLE `ordenCompra` (
+CREATE TABLE `ordencompra` (
   `idCompra` varchar(10) NOT NULL,
-  `idMaterial` varchar(10) NOT NULL,
-  `idStatus` int(11) NOT NULL
+  `codMaterial` varchar(10) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `idStatus` int(11) NOT NULL,
+  `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ordenTrabajo`
+-- Estructura de tabla para la tabla `ordentrabajo`
 --
 
-CREATE TABLE `ordenTrabajo` (
+CREATE TABLE `ordentrabajo` (
   `idOrdenTrabajo` varchar(10) NOT NULL,
   `idSolicitud` varchar(10) NOT NULL,
   `idStatus` int(11) NOT NULL,
@@ -144,10 +146,10 @@ CREATE TABLE `pasos` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pasosProcedimientos`
+-- Estructura de tabla para la tabla `pasosprocedimientos`
 --
 
-CREATE TABLE `pasosProcedimientos` (
+CREATE TABLE `pasosprocedimientos` (
   `idProcedimiento` int(11) NOT NULL,
   `idPaso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -160,7 +162,7 @@ CREATE TABLE `pasosProcedimientos` (
 
 CREATE TABLE `pem` (
   `idPem` int(10) NOT NULL,
-  `idResponsable` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
   `idProcedimiento` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -178,19 +180,19 @@ CREATE TABLE `procedimiento` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `procedimientosMantenimiento`
+-- Estructura de tabla para la tabla `procedimientosmantenimiento`
 --
 
-CREATE TABLE `procedimientosMantenimiento` (
+CREATE TABLE `procedimientosmantenimiento` (
   `idProMant` varchar(10) NOT NULL,
   `descripcion` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `procedimientosMantenimiento`
+-- Volcado de datos para la tabla `procedimientosmantenimiento`
 --
 
-INSERT INTO `procedimientosMantenimiento` (`idProMant`, `descripcion`) VALUES
+INSERT INTO `procedimientosmantenimiento` (`idProMant`, `descripcion`) VALUES
 ('INSP', 'INSPECCIONES'),
 ('MC-NP', 'MANTENIMIENTO CORRECTIVO NO PLANIFICADO'),
 ('MC-PL', 'MANTENIMIENTO CORRECTIVO PLANIFICADO'),
@@ -215,24 +217,31 @@ CREATE TABLE `proveedores` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `responsables`
+-- Estructura de tabla para la tabla `rol`
 --
 
-CREATE TABLE `responsables` (
-  `idResponsable` int(11) NOT NULL,
-  `nombres` varchar(100) NOT NULL,
-  `apellidos` varchar(150) NOT NULL,
-  `telefono` varchar(8) NOT NULL,
-  `email` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `rol` (
+  `idRol` int(11) NOT NULL,
+  `rol` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `rol`
+--
+
+INSERT INTO `rol` (`idRol`, `rol`) VALUES
+(1, 'ADMIN'),
+(2, 'GERENTE COMERCIAL'),
+(3, 'RESPONSABLE'),
+(4, 'USUARIO');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `solicitudOrdenTrabajo`
+-- Estructura de tabla para la tabla `solicitudordentrabajo`
 --
 
-CREATE TABLE `solicitudOrdenTrabajo` (
+CREATE TABLE `solicitudordentrabajo` (
   `idSolicitud` varchar(10) NOT NULL,
   `idCalendario` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
@@ -272,7 +281,7 @@ CREATE TABLE `usuarios` (
   `username` varchar(20) NOT NULL,
   `nombres` varchar(100) NOT NULL,
   `apellidos` varchar(250) NOT NULL,
-  `rol` varchar(50) NOT NULL
+  `idRol` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -295,9 +304,9 @@ ALTER TABLE `herramientas`
   ADD PRIMARY KEY (`idHerramienta`);
 
 --
--- Indices de la tabla `herramientasProcedimiento`
+-- Indices de la tabla `herramientasprocedimiento`
 --
-ALTER TABLE `herramientasProcedimiento`
+ALTER TABLE `herramientasprocedimiento`
   ADD PRIMARY KEY (`idProcedimiento`,`idHerramienta`),
   ADD KEY `idHerramienta` (`idHerramienta`);
 
@@ -315,23 +324,24 @@ ALTER TABLE `materiales`
   ADD KEY `idProveedor` (`idProveedor`);
 
 --
--- Indices de la tabla `materialesProcedimiento`
+-- Indices de la tabla `materialesprocedimiento`
 --
-ALTER TABLE `materialesProcedimiento`
+ALTER TABLE `materialesprocedimiento`
   ADD PRIMARY KEY (`idProcedimiento`,`codMaterial`),
   ADD KEY `codMaterial` (`codMaterial`);
 
 --
--- Indices de la tabla `ordenCompra`
+-- Indices de la tabla `ordencompra`
 --
-ALTER TABLE `ordenCompra`
+ALTER TABLE `ordencompra`
   ADD PRIMARY KEY (`idCompra`),
-  ADD KEY `idStatus` (`idStatus`);
+  ADD KEY `idStatus` (`idStatus`),
+  ADD KEY `codMaterial` (`codMaterial`);
 
 --
--- Indices de la tabla `ordenTrabajo`
+-- Indices de la tabla `ordentrabajo`
 --
-ALTER TABLE `ordenTrabajo`
+ALTER TABLE `ordentrabajo`
   ADD PRIMARY KEY (`idOrdenTrabajo`),
   ADD KEY `idSolicitud` (`idSolicitud`),
   ADD KEY `idStatus` (`idStatus`);
@@ -343,9 +353,9 @@ ALTER TABLE `pasos`
   ADD PRIMARY KEY (`idPaso`);
 
 --
--- Indices de la tabla `pasosProcedimientos`
+-- Indices de la tabla `pasosprocedimientos`
 --
-ALTER TABLE `pasosProcedimientos`
+ALTER TABLE `pasosprocedimientos`
   ADD PRIMARY KEY (`idProcedimiento`,`idPaso`),
   ADD KEY `idPaso` (`idPaso`);
 
@@ -354,7 +364,7 @@ ALTER TABLE `pasosProcedimientos`
 --
 ALTER TABLE `pem`
   ADD PRIMARY KEY (`idPem`),
-  ADD UNIQUE KEY `idResponsable` (`idResponsable`),
+  ADD UNIQUE KEY `idResponsable` (`idUsuario`),
   ADD KEY `idProcedimiento` (`idProcedimiento`);
 
 --
@@ -364,9 +374,9 @@ ALTER TABLE `procedimiento`
   ADD PRIMARY KEY (`idProcedimiento`);
 
 --
--- Indices de la tabla `procedimientosMantenimiento`
+-- Indices de la tabla `procedimientosmantenimiento`
 --
-ALTER TABLE `procedimientosMantenimiento`
+ALTER TABLE `procedimientosmantenimiento`
   ADD PRIMARY KEY (`idProMant`);
 
 --
@@ -376,15 +386,15 @@ ALTER TABLE `proveedores`
   ADD PRIMARY KEY (`idProveedor`);
 
 --
--- Indices de la tabla `responsables`
+-- Indices de la tabla `rol`
 --
-ALTER TABLE `responsables`
-  ADD PRIMARY KEY (`idResponsable`);
+ALTER TABLE `rol`
+  ADD PRIMARY KEY (`idRol`);
 
 --
--- Indices de la tabla `solicitudOrdenTrabajo`
+-- Indices de la tabla `solicitudordentrabajo`
 --
-ALTER TABLE `solicitudOrdenTrabajo`
+ALTER TABLE `solicitudordentrabajo`
   ADD PRIMARY KEY (`idSolicitud`),
   ADD KEY `idCalendario` (`idCalendario`),
   ADD KEY `idUsuario` (`idUsuario`);
@@ -399,7 +409,8 @@ ALTER TABLE `status`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`idUsuario`);
+  ADD PRIMARY KEY (`idUsuario`),
+  ADD KEY `idRol` (`idRol`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -424,10 +435,10 @@ ALTER TABLE `procedimiento`
   MODIFY `idProcedimiento` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `responsables`
+-- AUTO_INCREMENT de la tabla `rol`
 --
-ALTER TABLE `responsables`
-  MODIFY `idResponsable` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `rol`
+  MODIFY `idRol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `status`
@@ -450,13 +461,13 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `calendario`
   ADD CONSTRAINT `calendario_ibfk_1` FOREIGN KEY (`codInventario`) REFERENCES `inventario` (`codInventario`),
-  ADD CONSTRAINT `calendario_ibfk_2` FOREIGN KEY (`idProMant`) REFERENCES `procedimientosMantenimiento` (`idProMant`),
+  ADD CONSTRAINT `calendario_ibfk_2` FOREIGN KEY (`idProMant`) REFERENCES `procedimientosmantenimiento` (`idProMant`),
   ADD CONSTRAINT `calendario_ibfk_3` FOREIGN KEY (`idPem`) REFERENCES `pem` (`idPem`);
 
 --
--- Filtros para la tabla `herramientasProcedimiento`
+-- Filtros para la tabla `herramientasprocedimiento`
 --
-ALTER TABLE `herramientasProcedimiento`
+ALTER TABLE `herramientasprocedimiento`
   ADD CONSTRAINT `herramientasProcedimiento_ibfk_1` FOREIGN KEY (`idHerramienta`) REFERENCES `herramientas` (`idHerramienta`),
   ADD CONSTRAINT `herramientasProcedimiento_ibfk_2` FOREIGN KEY (`idProcedimiento`) REFERENCES `procedimiento` (`idProcedimiento`);
 
@@ -467,29 +478,30 @@ ALTER TABLE `materiales`
   ADD CONSTRAINT `materiales_ibfk_1` FOREIGN KEY (`idProveedor`) REFERENCES `proveedores` (`idProveedor`);
 
 --
--- Filtros para la tabla `materialesProcedimiento`
+-- Filtros para la tabla `materialesprocedimiento`
 --
-ALTER TABLE `materialesProcedimiento`
+ALTER TABLE `materialesprocedimiento`
   ADD CONSTRAINT `materialesProcedimiento_ibfk_1` FOREIGN KEY (`codMaterial`) REFERENCES `materiales` (`codMaterial`),
   ADD CONSTRAINT `materialesProcedimiento_ibfk_2` FOREIGN KEY (`idProcedimiento`) REFERENCES `procedimiento` (`idProcedimiento`);
 
 --
--- Filtros para la tabla `ordenCompra`
+-- Filtros para la tabla `ordencompra`
 --
-ALTER TABLE `ordenCompra`
-  ADD CONSTRAINT `ordenCompra_ibfk_1` FOREIGN KEY (`idStatus`) REFERENCES `status` (`idStatus`);
+ALTER TABLE `ordencompra`
+  ADD CONSTRAINT `ordencompra_ibfk_1` FOREIGN KEY (`codMaterial`) REFERENCES `materiales` (`codMaterial`),
+  ADD CONSTRAINT `ordencompra_ibfk_2` FOREIGN KEY (`idStatus`) REFERENCES `status` (`idStatus`);
 
 --
--- Filtros para la tabla `ordenTrabajo`
+-- Filtros para la tabla `ordentrabajo`
 --
-ALTER TABLE `ordenTrabajo`
-  ADD CONSTRAINT `ordenTrabajo_ibfk_1` FOREIGN KEY (`idSolicitud`) REFERENCES `solicitudOrdenTrabajo` (`idSolicitud`),
+ALTER TABLE `ordentrabajo`
+  ADD CONSTRAINT `ordenTrabajo_ibfk_1` FOREIGN KEY (`idSolicitud`) REFERENCES `solicitudordentrabajo` (`idSolicitud`),
   ADD CONSTRAINT `ordenTrabajo_ibfk_2` FOREIGN KEY (`idStatus`) REFERENCES `status` (`idStatus`);
 
 --
--- Filtros para la tabla `pasosProcedimientos`
+-- Filtros para la tabla `pasosprocedimientos`
 --
-ALTER TABLE `pasosProcedimientos`
+ALTER TABLE `pasosprocedimientos`
   ADD CONSTRAINT `pasosProcedimientos_ibfk_1` FOREIGN KEY (`idPaso`) REFERENCES `pasos` (`idPaso`),
   ADD CONSTRAINT `pasosProcedimientos_ibfk_2` FOREIGN KEY (`idProcedimiento`) REFERENCES `procedimiento` (`idProcedimiento`);
 
@@ -498,14 +510,20 @@ ALTER TABLE `pasosProcedimientos`
 --
 ALTER TABLE `pem`
   ADD CONSTRAINT `pem_ibfk_1` FOREIGN KEY (`idProcedimiento`) REFERENCES `procedimiento` (`idProcedimiento`),
-  ADD CONSTRAINT `pem_ibfk_2` FOREIGN KEY (`idResponsable`) REFERENCES `responsables` (`idResponsable`);
+  ADD CONSTRAINT `pem_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`);
 
 --
--- Filtros para la tabla `solicitudOrdenTrabajo`
+-- Filtros para la tabla `solicitudordentrabajo`
 --
-ALTER TABLE `solicitudOrdenTrabajo`
+ALTER TABLE `solicitudordentrabajo`
   ADD CONSTRAINT `solicitudOrdenTrabajo_ibfk_1` FOREIGN KEY (`idCalendario`) REFERENCES `calendario` (`idCalendario`),
   ADD CONSTRAINT `solicitudOrdenTrabajo_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`);
+
+--
+-- Filtros para la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

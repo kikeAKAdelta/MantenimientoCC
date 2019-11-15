@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head >
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="../boostrap/css/bootstrap.min.css">
     <script src="../js/jqueryv3.4.1.js"></script>
     <script src="../boostrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/menu_flotante.css">
 </head>
 <body>
 
      <!--Menu-->
-     <div class="container-fluid">
+     <div class="container-fluid" id="menu">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="navbar-brand" href="#">HOME</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,9 +55,10 @@
 
               <br>
       <br><br>
-      <h2 class="container">Proveedores</h2>
+      
     <!--Contenido-->
-    <div class="container">
+    <div class="container" id="tabla_datos">
+        <h2 class="container">Proveedores</h2>
             <table class="table">
                     <thead>
                       <tr>
@@ -86,10 +88,59 @@
                       </tr>
                     </tbody>
                   </table>
-                  <button type="button" class="btn btn-primary">
+                  <button type="button" class="btn btn-primary" id="nuevo">
                         Nuevo Proveedor
                     </button>
     </div>
+
+
+    <!---Menu flotante agregar proveedor-->
+    <div id="proveedores" >
+      
+      <div class="container">
+          <form action="">
+
+              <div class="form-group">
+                      <label for="proveedor">Proveedor:</label>
+                      <input type="text" id="proveedor" class="form-control" placeholder="Escriba aqui...">
+              </div>
+              
+              <div class="form-group">
+                  <label for="telefono">Telefono:</label>
+                  <input type="text" id="telefono" class="form-control" placeholder="Escriba aqui...">
+              </div>
+
+              <button class="btn btn-primary">Guardar</button>
+              <button class="btn btn-primary" id="cancelar">Cancelar</button>
+      </div>
+
+    </div>
+
+    <!--logica ventana emergente-->
+
+    <script>
+
+        var flotante = document.getElementById("proveedores");
+        var nuevo = document.getElementById("nuevo");
+        var cerrando = document.getElementById("cancelar");
+        
+        function abrir(){
+            flotante.style.display="block";
+            //document.getElementById("menu").style.background="#000000";
+            document.getElementById("menu").style.opacity="0.2";
+            document.getElementById("tabla_datos").style.opacity="0.2";
+        }
+    
+        function cerrar(){
+          flotante.style.display="none";
+          document.getElementById("menu").style.opacity="1";
+          document.getElementById("tabla_datos").style.opacity="1";
+            //document.getElementById("cambio").style.background="#ffffff";
+        }
+
+        nuevo.addEventListener("click",abrir,false);
+        cerrando.addEventListener("click",cerrar,false);
+    </script>
     
 </body>
 </html>

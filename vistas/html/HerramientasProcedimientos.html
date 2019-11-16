@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Herramientas</title>
+
+    <!--BOOSTRAP-->
+    <link rel="stylesheet" href="../boostrap/css/bootstrap.min.css">
+    <script src="../js/jqueryv3.4.1.js"></script>
+    <script src="../boostrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/menu_flotante.css">  <!--css normal-->
+</head>
+<body>
+    
+     <!--Menu-->
+     <div class="container-fluid" id="menu">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">HOME</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Usuarios</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Orden Trabajo
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                      </div>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                  </ul>
+                  <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                  </form>
+                </div>
+              </nav>
+              </div>
+
+              <br>
+      <br><br>
+
+      <!--Contenido-->
+    <div class="container" id="tabla_datos">
+            <h2 class="container">Herramientas</h2>
+                <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Herramienta</th>
+                            <th scope="col">Cantidad</th>
+                            
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">Destornillador</th>
+                            <td>
+                                20
+                            </td>
+                            
+                            
+                          </tr>
+                          <tr>
+                            <th scope="row">Pulsera antiestatica</th>
+                            <td>
+                                    50
+                            </td>
+                            
+                            
+                          </tr>
+                          <tr>
+                            <th scope="row">Guantes</th>
+                            <td>
+                                   10
+                            </td>
+                            
+                            
+                          </tr>
+                        </tbody>
+                      </table>
+                      <button type="button" class="btn btn-primary" id="nuevo">
+                            Nueva Herramienta
+                        </button>
+        </div>
+
+        <!---Menu flotante agregar proveedor-->
+    <div id="herramientas" >
+      
+            <div class="container">
+                <form action="">
+      
+                    <div class="form-group">
+                            <label for="herramienta">Herramienta:</label>
+                            <input type="text" id="herramienta" class="form-control" placeholder="Escriba aqui...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefono">Cantidad:</label>
+                        <input type="text" id="telefono" class="form-control" placeholder="Escriba aqui...">
+                    </div>
+      
+                    <button class="btn btn-primary">Guardar</button>
+                    <button class="btn btn-primary" id="cancelar">Cancelar</button>
+            </div>
+      
+          </div>
+
+          <!--logica ventana emergente-->
+
+    <script>
+
+            var flotante = document.getElementById("herramientas");
+            var nuevo = document.getElementById("nuevo");
+            var cerrando = document.getElementById("cancelar");
+            
+            function abrir(){
+                flotante.style.display="block";
+                //document.getElementById("menu").style.background="#000000";
+                document.getElementById("menu").style.opacity="0.2";
+                document.getElementById("tabla_datos").style.opacity="0.2";
+            }
+        
+            function cerrar(){
+              flotante.style.display="none";
+              document.getElementById("menu").style.opacity="1";
+              document.getElementById("tabla_datos").style.opacity="1";
+                //document.getElementById("cambio").style.background="#ffffff";
+            }
+    
+            nuevo.addEventListener("click",abrir,false);
+            cerrando.addEventListener("click",cerrar,false);
+        </script>
+</body>
+</html>

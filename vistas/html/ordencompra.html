@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head >
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Proveedores</title>
+    <title>Orden de Compra</title>
 
     <!--BOOSTRAP-->
     <link rel="stylesheet" href="../boostrap/css/bootstrap.min.css">
@@ -13,9 +13,8 @@
     <link rel="stylesheet" href="../css/menu_flotante.css"> <!--css normal-->
 </head>
 <body>
-
-     <!--Menu-->
-     <div class="container-fluid" id="menu">
+    <!--Menu-->
+    <div class="container-fluid" id="menu">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="navbar-brand" href="#">HOME</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,57 +57,89 @@
       
     <!--Contenido-->
     <div class="container" id="tabla_datos">
-        <h2 class="container">Proveedores</h2>
+        <h2 class="container">Orden de Compra</h2>
             <table class="table">
                     <thead>
                       <tr>
-                        <th scope="col">Proveedor</th>
-                        <th scope="col">Contacto</th>
+                        <th scope="col">Material</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Fecha</th>
                         
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <th scope="row">Administrador</th>
-                        <td>22402525</td>
-                        
-                        
-                      </tr>
-                      <tr>
-                        <th scope="row">Gerente Comercial</th>
-                        <td>22402525</td>
-                        
+                        <th scope="row">Destornillador</th>
+                        <td>30</td>
+                        <td>Completado</td>
+                        <td>20/11/2019</td>
                         
                       </tr>
                       <tr>
-                        <th scope="row">Reposnsable</th>
-                        <td>22402525</td>
-                        
+                            <th scope="row">Destornillador 2</th>
+                            <td>30</td>
+                            <td>Proceso</td>
+                            <td>20/11/2019</td>
                         
                       </tr>
+                      <tr>
+                            <th scope="row">Destornillador 3</th>
+                            <td>30</td>
+                            <td>Completado</td>
+                            <td>20/11/2019</td>
+                        
+                      </tr>
+                      <tr>
+                            <th scope="row">Destornillador 4</th>
+                            <td>30</td>
+                            <td>Cancelado</td>
+                            <td>20/11/2019</td>
+                      </tr>
+
                     </tbody>
                   </table>
                   <button type="button" class="btn btn-primary" id="nuevo">
-                        Nuevo Proveedor
+                        Nueva Orden de Compra
                     </button>
     </div>
 
 
     <!---Menu flotante agregar proveedor-->
-    <div id="proveedores" >
+    <div id="orden_compras" >
       
       <div class="container">
           <form action="">
 
               <div class="form-group">
-                      <label for="proveedor">Proveedor:</label>
-                      <input type="text" id="proveedor" class="form-control" placeholder="Escriba aqui...">
+                      <label for="material">Material:</label>
+                      <input type="text" id="material" class="form-control" placeholder="Escriba aqui...">
               </div>
               
               <div class="form-group">
-                  <label for="telefono">Telefono:</label>
-                  <input type="text" id="telefono" class="form-control" placeholder="Escriba aqui...">
+                  <label for="descripcion">Descripcion:</label>
+                  <input type="text" id="descripcion" class="form-control" placeholder="Escriba aqui...">
               </div>
+
+              <div class="form-group">
+                    <label for="rol">Proveedor:</label>
+                    <select name="" id="rol" class="form-control">
+                        <option value="">Freund</option>
+                        <option value="">Tornilleras de S.A</option>
+                        <option value="">Desarmando S.V</option>
+                        <option value="">Llave Inglesa</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                        <label for="cantidad">Cantidad:</label>
+                        <input type="text" id="cantidad" class="form-control" placeholder="Escriba aqui...">
+                </div>
+
+                <div class="form-group">
+                        <label for="costo">Costo:</label>
+                        <input type="text" id="costo" class="form-control" placeholder="Escriba aqui...">
+                </div>
 
               <button class="btn btn-primary">Guardar</button>
               <button class="btn btn-primary" id="cancelar">Cancelar</button>
@@ -120,7 +151,7 @@
 
     <script>
 
-        var flotante = document.getElementById("proveedores");
+        var flotante = document.getElementById("orden_compras");
         var nuevo = document.getElementById("nuevo");
         var cerrando = document.getElementById("cancelar");
         
@@ -141,6 +172,5 @@
         nuevo.addEventListener("click",abrir,false);
         cerrando.addEventListener("click",cerrar,false);
     </script>
-    
 </body>
 </html>

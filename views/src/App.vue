@@ -1,7 +1,7 @@
 <!-- eslint-disable -->
 <template>
   <div id="app">
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-dark bg-dark padding">
       <a class="navbar-brand" href="#">Navbar</a>
       <button
         class="navbar-toggler toggler-example"
@@ -94,5 +94,8 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.padding{
+  margin-bottom: 3em;
 }
 </style>

@@ -13,61 +13,73 @@
         </tr>
       </thead>
       <tbody> 
-        <tr v-for="item in lists" v-bind:key="item">
-          <th scope="row" v-text="item.id">{{ item.id }}</th>
-          <td>{{ item.name }}</td>
-          <td>{{ item.username }}</td>
-          <td>{{ item.email }}</td>
-          <td>{{ item.phone }}</td>
-          <td>{{ item.website }}</td>
-        </tr>
-        <tr>
-          <th scope="row">Destornillador 2</th>
-          <td>30</td>
-          <td>Proceso</td>
-          <td>20/11/2019</td>
-        </tr>
-        <tr>
-          <th scope="row">Destornillador 3</th>
-          <td>30</td>
-          <td>Completado</td>
-          <td>20/11/2019</td>
-        </tr>
-        <tr>
-          <th scope="row">Destornillador 4</th>
-          <td>30</td>
-          <td>Cancelado</td>
-          <td>20/11/2019</td>
+        <tr v-for="item in lists" v-bind:key="item.episode_id">
+          <th scope="row">{{ item.episode_id }}</th>
+          <td>{{ item.episode_id }}</td>
+          <td>{{ item.director }}</td>
+          <td><input placeholder="3"></td>
+          <td>
+            <select>
+              <option>{{ item.director }}</option>
+              <option>{{ item.director }}</option>
+              <option>{{ item.director }}</option>
+            </select></td>
+          <td>{{ item.director }}</td>
+          <td><div id="checkboxes">
+            <input type="checkbox" value=""/>
+            </div></td>
         </tr>
       </tbody>
     </table>
-    <button type="button" class="btn btn-primary" id="nuevo">
-      Nueva Orden de Compra
-    </button>
+    <br>
+    <div class = "botonera">
+      <button type="button" class="btn btn-success" style="text-align:left" id="realizar">
+        Realizar Compra
+      </button>
+      <button type="button" class="btn btn-info" id="nuevo">
+        Nueva Orden de Compra
+      </button>
+      <button type="button" class="btn btn-danger" id="cancelar">
+        Cancelar Compra
+      </button>
+    </div>
+    <br>
   </div>
 </template>
 
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
-<script type="text/javascript">
-  var urlOrden= "https://jsonplaceholder.typicode.com/users";
-  var vm = new Vue({
-    el: "#ordencompra",
-    data: {
+<script>
+import axios from "axios";
+export default {
+  name: "Peliculas",
+  mounted() {
+    this.getFilms();
+  },
+  data() {
+    return {
       lists: []
-    },
-
-    mounted: function(){
-      const axios = require('axios');
-      axios.get(urlOrden)
-        .then(response => {
-          this.lists = response.data;
-          console.log(response);
+    };
+  },
+  methods: {
+    getFilms() {
+      axios
+        .get("https://swapi.co/api/films/")
+        .then(res => {
+          console.log(res);
+          this.lists = res.data.results;
         })
-        .catch(error => {
-          console.log(error);
+        .catch(err => {
+          console.log(err);
         });
-      }
-    })
+    }
+  }
+};
 </script>
+
+<style type="text/css">
+  .botonera {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+}
+</style>

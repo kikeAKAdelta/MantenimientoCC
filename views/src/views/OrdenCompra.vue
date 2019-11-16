@@ -36,9 +36,10 @@
       <button type="button" class="btn btn-success" style="text-align:left" id="realizar">
         Realizar Compra
       </button>
+      <router-link to="/nuevaordencompra" target="_self">
       <button type="button" class="btn btn-info" id="nuevo">
-        Nueva Orden de Compra
-      </button>
+         Nueva Orden de Compra
+      </button></router-link> 
       <button type="button" class="btn btn-danger" id="cancelar">
         Cancelar Compra
       </button>
@@ -83,3 +84,4 @@ export default {
   width: 100%;
 }
 </style>
+

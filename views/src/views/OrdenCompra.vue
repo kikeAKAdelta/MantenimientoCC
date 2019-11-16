@@ -1,5 +1,5 @@
 <template>
-  <div class="container" id="ordencompra">
+  <div id="ordencompra" class="container">
     <h2 class="container">Orden de Compra</h2>
     <table class="table">
       <thead>
@@ -12,14 +12,14 @@
           <th scope="col">Fecha</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody> 
         <tr v-for="item in lists" v-bind:key="item">
-          <th scope="row" v-text="item.id"></th>
-          <td v-text="item.name">30</td>
-          <td v-text="item.username">30</td>
-          <td v-text="item.email">30</td>
-          <td v-text="item.phone">30</td>
-          <td v-text="item.website">30</td>
+          <th scope="row" v-text="item.id">{{ item.id }}</th>
+          <td>{{ item.name }}</td>
+          <td>{{ item.username }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.phone }}</td>
+          <td>{{ item.website }}</td>
         </tr>
         <tr>
           <th scope="row">Destornillador 2</th>
@@ -47,22 +47,27 @@
   </div>
 </template>
 
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
 <script type="text/javascript">
-    var urlOrden= 'https://jsonplaceholder.typicode.com/todos/1';
-    new Vue({
-    el: '#ordencompra',
+  var urlOrden= "https://jsonplaceholder.typicode.com/users";
+  var vm = new Vue({
+    el: "#ordencompra",
     data: {
       lists: []
     },
-    methods: {
-      getOrden: function() {
-        this.$http.get(urlOrden).then(function(response){
-          this.lists = response;
+
+    mounted: function(){
+      const axios = require('axios');
+      axios.get(urlOrden)
+        .then(response => {
+          this.lists = response.data;
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
         });
       }
-    }
-});
-
+    })
 </script>

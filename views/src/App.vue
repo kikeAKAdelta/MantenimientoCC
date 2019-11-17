@@ -95,7 +95,7 @@
   text-align: center;
   color: #2c3e50;
 }
-.padding{
+.padding {
   margin-bottom: 3em;
 }
 </style>

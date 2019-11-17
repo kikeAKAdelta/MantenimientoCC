@@ -56,7 +56,7 @@
 <script>
 window.onload = function(){ 
     var f = new Date();
-    document.getElementById("fechasolicitud").value = f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
+    document.getElementById("fechasolicitud").value = f.getFullYear()+ "-" + (f.getMonth() +1) + "-" + f.getDate();
 }
 export default {
   methods: {

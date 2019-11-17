@@ -31,14 +31,6 @@
         </tr>
       </tbody>
     </table>
-    <br>
-    <div class = "botonera">
-        <router-link to="/nuevaordencompra" target="_self">
-        <button type="button" class="btn btn-info" style='width:150px; height:50px' id="nuevo">
-            Nuevo
-        </button></router-link>
-    </div>
-    <br>
   </div>
 </template>
 
@@ -69,16 +61,3 @@ export default {
   }
 };
 </script>
-
-<style type="text/css">
-    .botonera {
-        display: flex;
-        justify-content: end;
-        padding-right: 2%;
-        padding-bottom: 2%;
-        width: 100%;
-    }
-    .nuevo{
-        width: 30%;
-    }
-</style>

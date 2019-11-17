@@ -51,8 +51,6 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/pems">Listado de PEMS</a>
-            <a class="dropdown-item" href="/nuevoprocedimiento">Agregar procedimiento</a>
-            <a class="dropdown-item" href="/nuevospasos">Agregar tareas</a>
             <a class="dropdown-item" href="/nuevapem">Agregar PEM</a>
           </div>
         <li class="nav-item dropdown">

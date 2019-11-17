@@ -4,35 +4,50 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Rol</th>
-          <th scope="col">Nombre de Usuario</th>
-          <th scope="col">Nombre</th>
+          <th scope="col">Código</th>
+          <th scope="col">Username</th>
+          <th scope="col">Nombres</th>
           <th scope="col">Apellidos</th>
+          <th scope="col">Rol</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">Administrador</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>Slow</td>
-        </tr>
-        <tr>
-          <th scope="row">Gerente Comercial</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>Haisenberg</td>
-        </tr>
-        <tr>
-          <th scope="row">Reposnsable</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>Heisel</td>
+          <tr v-for="item in lists" v-bind:key="item.episode_id">
+          <th scope="row">{{ item.episode_id }}</th>
+          <td>{{ item.title }}</td>
+          <td>{{ item.director }}</td>
+          <td>{{ item.producer }}</td>
+          <td>{{ item.title }}</td>
         </tr>
       </tbody>
     </table>
-    <button type="button" class="btn btn-primary" id="nuevo">
-      Nuevo Usuario
-    </button>
   </div>
 </template>
+
+<script>
+import axios from "axios";
+export default {
+  name: "Usuarios",
+  mounted() {
+    this.getFilms();
+  },
+  data() {
+    return {
+      lists: []
+    };
+  },
+  methods: {
+    getFilms() {
+      axios
+        .get("https://swapi.co/api/films/")
+        .then(res => {
+          console.log(res);
+          this.lists = res.data.results;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }
+};
+</script>

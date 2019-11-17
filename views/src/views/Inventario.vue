@@ -33,9 +33,10 @@
     </table>
     <br>
     <div class = "botonera">
+        <router-link to="/nuevaordencompra" target="_self">
         <button type="button" class="btn btn-info" style='width:150px; height:50px' id="nuevo">
             Nuevo
-        </button>
+        </button></router-link>
     </div>
     <br>
   </div>

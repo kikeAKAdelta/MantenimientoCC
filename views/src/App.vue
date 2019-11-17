@@ -1,7 +1,9 @@
 <!-- eslint-disable -->
 <template>
   <div id="app">
-    <nav class="navbar navbar-dark bg-dark padding">
+    <barnav />
+    <br>
+    <!--<nav class="navbar navbar-dark bg-dark padding">
       <a class="navbar-brand" href="#">Navbar</a>
       <button
         class="navbar-toggler toggler-example"
@@ -82,10 +84,20 @@
           </li>
         </ul>
       </div>
-    </nav>
+    </nav>-->
     <router-view />
   </div>
 </template>
+
+<script>
+  import Barnav from './components/Barnav'
+  export default {
+      name: 'app',
+      components: {
+          Barnav
+      }
+  }
+</script>
 
 <style lang="scss">
 #app {

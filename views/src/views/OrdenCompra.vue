@@ -18,12 +18,7 @@
           <td>{{ item.episode_id }}</td>
           <td>{{ item.director }}</td>
           <td><input placeholder="3"></td>
-          <td>
-            <select>
-              <option>{{ item.director }}</option>
-              <option>{{ item.director }}</option>
-              <option>{{ item.director }}</option>
-            </select></td>
+          <td>En Proceso</td>
           <td>{{ item.director }}</td>
           <td><div id="checkboxes">
             <input type="checkbox" value=""/>

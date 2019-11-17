@@ -14,7 +14,7 @@
                 <h5 style='text-align:left'>TAREAS</h5>
                 <div id="pasos" class="container">
                     <div class="card mb-3" 
-                    v-for="(tarea,index) in pasos" :key="tarea.paso">
+                    v-for="(tarea,index) in pasos" :key="tarea.id">
                         <div class="card-body">
                             <span class="float-right" style="cursor:pointer"
                             @click="limpiar(index)"><h6>x</h6>
@@ -35,14 +35,14 @@
                 <h5 style='text-align:left'>MATERIALES</h5>
                 <div id="materiales" class="container">
                     <div class="card mb-3" 
-                    v-for="(mat,index) in materiales" :key="mat.material">
+                    v-for="(mat,index) in materiales" :key="mat.id">
                         <div class="card-body">
                             <span class="float-right" style="cursor:pointer"
                             @click="limpiar2(index)"><h6>x</h6>
                             </span>
                             <h6 class="card-tittle">MATERIAL {{ index +1}}</h6>
                             <div class="employee-form">
-                                <input id="tarea" type="text" class="form-control mb-2" placeholder="AGREGA UN MATERIAL" v-model="mat.material">
+                                <input id="material" type="text" class="form-control mb-2" placeholder="AGREGA UN MATERIAL" v-model="mat.material">
                             </div>
                         </div>
                     </div>
@@ -57,14 +57,14 @@
                 <h5 style='text-align:left'>HERRAMIENTAS</h5>
                 <div id="herramientas" class="container">
                     <div class="card mb-3" 
-                    v-for="(her,index) in herramientas" :key="her.herramienta">
+                    v-for="(her,index) in herramientas" :key="her.id">
                         <div class="card-body">
                             <span class="float-right" style="cursor:pointer"
                             @click="limpiar3(index)"><h6>x</h6>
                             </span>
                             <h6 class="card-tittle">HERRAMIENTA {{ index +1}}</h6>
                             <div class="employee-form">
-                                <input id="tarea" type="text" class="form-control mb-2" placeholder="AGREGA UNA HERRAMIENTA" v-model="her.herramienta">
+                                <input id="herramienta" type="text" class="form-control mb-2" placeholder="AGREGA UNA HERRAMIENTA" v-model="her.herramienta">
                             </div>
                         </div>
                     </div>

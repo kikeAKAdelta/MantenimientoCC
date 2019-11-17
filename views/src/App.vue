@@ -36,6 +36,13 @@
         </ul>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
+            <router-link to="/inventario" class="navbar-brand"
+              >Inventario</router-link
+            >
+          </li>
+        </ul>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
             <router-link to="/materiales" class="navbar-brand"
               >Materiales</router-link
             >

@@ -7,20 +7,22 @@
               </span>
             <h4 class="card-tittle">AGREGAR NUEVO</h4>
             <div class="employee-form">
-                <input id="nombre" type="text" class="form-control mb-2" placeholder="MATERIAL">
+                <input id="nombre" type="text" class="form-control mb-2" placeholder="EQUIPO">
                 <textarea id="descripcion" class="form-control mb-2" cols="30" rows="10" placeholder="DESCRIPCIÓN"></textarea>
-                <select class="form-control mb-2">
-                    <option>PROVEEDOR 1</option>
-                    <option>PROVEEDOR 2</option>
-                </select>
-                <input id="costo" type="text" class="form-control mb-2" placeholder="COSTO">
+                <input id="modelo" type="text" class="form-control mb-2" placeholder="MODELO">
+                <input id="numeroserie" type="text" class="form-control mb-2" placeholder="NÚMERO DE SERIE">
+                <input id="ano" type="text" class="form-control mb-2" placeholder="AÑO">
+                <input id="condicion" type="text" class="form-control mb-2" placeholder="CONDICIÓN">
+                <input id="ubicacion" type="text" class="form-control mb-2" placeholder="UBICACIÓN">
+                <input id="vidautil" type="text" class="form-control mb-2" placeholder="VIDA UTIL">
+                <input id="gar" type="checkbox" class="form-control mb-2" value="garantia"/>¿POSEE GARANTÍA?
             </div>
           </div>
           <div class = "botonera">
             <button type="button" class="btn btn-success" style='width:150px; height:50px' id="agregar">
                 Agregar
             </button>
-        </div>
+            </div>
       </div>
   </div>
 </template>
@@ -31,7 +33,12 @@ export default {
     limpiar(){
         document.getElementById("nombre").value = "";
         document.getElementById("descripcion").value = "";
-        document.getElementById("costo").value = "";
+        document.getElementById("modelo").value = "";
+        document.getElementById("numeroserie").value = "";
+        document.getElementById("ano").value = "";
+        document.getElementById("condicion").value = "";
+        document.getElementById("ubicacion").value = "";
+        document.getElementById("vidautil").value = "";
     }
   }
 };

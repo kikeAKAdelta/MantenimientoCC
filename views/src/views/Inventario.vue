@@ -1,18 +1,32 @@
 <template>
   <div class="container" id="tabla_datos">
-    <h2 class="container">Herramientas</h2>
+    <h2 class="container">Inventario</h2>
     <table class="table">
       <thead>
         <tr>
           <th scope="col">Código</th>
-          <th scope="col">Herramienta</th>
-          <th scope="col">Cantidad Disponible</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Modelo</th>
+          <th scope="col">Número de Serie</th>
+          <th scope="col">Año</th>
+          <th scope="col">Condición</th>
+          <th scope="col">Ubicación</th>
+          <th scope="col">Vida Útil</th>
+          <th scope="col">Garantía</th>
         </tr>
       </thead>
       <tbody>
           <tr v-for="item in lists" v-bind:key="item.episode_id">
           <th scope="row">{{ item.episode_id }}</th>
           <td>{{ item.title }}</td>
+          <td>{{ item.opening_crawl }}</td>
+          <td>{{ item.director }}</td>
+          <td>{{ item.episode_id }}</td>
+          <td>{{ item.episode_id }}</td>
+          <td>{{ item.director }}</td>
+          <td>{{ item.episode_id }}</td>
+          <td>{{ item.episode_id }}</td>
           <td>{{ item.episode_id }}</td>
         </tr>
       </tbody>
@@ -23,7 +37,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "Herramientas",
+  name: "Inventario",
   mounted() {
     this.getFilms();
   },

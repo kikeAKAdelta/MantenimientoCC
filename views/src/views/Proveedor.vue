@@ -4,27 +4,46 @@
     <table class="table">
       <thead>
         <tr>
+          <th scope="col">Código</th>
           <th scope="col">Proveedor</th>
-          <th scope="col">Contacto</th>
+          <th scope="col">Teléfono</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">Administrador</th>
-          <td>22402525</td>
-        </tr>
-        <tr>
-          <th scope="row">Gerente Comercial</th>
-          <td>22402525</td>
-        </tr>
-        <tr>
-          <th scope="row">Reposnsable</th>
-          <td>22402525</td>
+          <tr v-for="item in lists" v-bind:key="item.episode_id">
+          <th scope="row">{{ item.episode_id }}</th>
+          <td>{{ item.title }}</td>
+          <td>{{ item.episode_id }}</td>
         </tr>
       </tbody>
     </table>
-    <button type="button" class="btn btn-primary" id="nuevo">
-      Nuevo Proveedor
-    </button>
   </div>
 </template>
+
+<script>
+import axios from "axios";
+export default {
+  name: "Proveedores",
+  mounted() {
+    this.getFilms();
+  },
+  data() {
+    return {
+      lists: []
+    };
+  },
+  methods: {
+    getFilms() {
+      axios
+        .get("https://swapi.co/api/films/")
+        .then(res => {
+          console.log(res);
+          this.lists = res.data.results;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }
+};
+</script>

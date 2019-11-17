@@ -1,15 +1,16 @@
 <template>
-  <div id="ordencompra" class="container">
-    <h2 class="container">Orden de Compra</h2>
+  <div id="ordentrabajo" class="container">
+    <h2 class="container">Órdenes de Trabajo</h2>
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">N° Compra</th>
-          <th scope="col">Código Material</th>
-          <th scope="col">Material</th>
-          <th scope="col">Cantidad a comprar</th>
+          <th scope="col">ID Orden Trabajo</th>
+          <th scope="col">Equipo</th>
+          <th scope="col">Tipo de Mantenimiento</th>
+          <th scope="col">Tipo de Falla</th>
+          <th scope="col">Fecha Asignada</th>
           <th scope="col">Estado</th>
-          <th scope="col">Fecha</th>
+          <th scope="col">Procedimiento</th>
         </tr>
       </thead>
       <tbody> 
@@ -17,9 +18,15 @@
           <th scope="row">{{ item.episode_id }}</th>
           <td>{{ item.episode_id }}</td>
           <td>{{ item.director }}</td>
-          <td><input placeholder="3"></td>
-          <td>En Proceso</td>
+          <td>{{ item.episode_id }}</td>
           <td>{{ item.director }}</td>
+          <td>En Proceso</td>
+          <td>  
+            <select>
+                <option>PROCEDIMIENTO 1</option>
+                <option>PROCEDIMIENTO 2</option>
+            </select>
+            </td>
           <td><div id="checkboxes">
             <input type="checkbox" value=""/>
             </div></td>
@@ -29,10 +36,10 @@
     <br>
     <div class = "botonera">
       <button type="button" class="btn btn-success" style="text-align:left" id="realizar">
-        Realizar Compra
+        Órden Finalizada
       </button>
       <button type="button" class="btn btn-danger" id="cancelar">
-        Cancelar Compra
+        Órden Cancelada
       </button>
     </div>
     <br>

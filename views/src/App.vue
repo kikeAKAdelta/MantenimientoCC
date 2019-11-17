@@ -1,7 +1,9 @@
 <!-- eslint-disable -->
 <template>
   <div id="app">
-    <nav class="navbar navbar-dark bg-dark padding">
+    <barnav />
+    <br>
+    <!--<nav class="navbar navbar-dark bg-dark padding">
       <a class="navbar-brand" href="#">Navbar</a>
       <button
         class="navbar-toggler toggler-example"
@@ -36,6 +38,13 @@
         </ul>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
+            <router-link to="/inventario" class="navbar-brand"
+              >Inventario</router-link
+            >
+          </li>
+        </ul>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
             <router-link to="/materiales" class="navbar-brand"
               >Materiales</router-link
             >
@@ -62,13 +71,6 @@
         </ul>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <router-link to="/materiales" class="navbar-brand"
-              >Materiales</router-link
-            >
-          </li>
-        </ul>
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
             <router-link to="/procedimientos" class="navbar-brand"
               >Procedimientos</router-link
             >
@@ -82,10 +84,20 @@
           </li>
         </ul>
       </div>
-    </nav>
+    </nav>-->
     <router-view />
   </div>
 </template>
+
+<script>
+  import Barnav from './components/Barnav'
+  export default {
+      name: 'app',
+      components: {
+          Barnav
+      }
+  }
+</script>
 
 <style lang="scss">
 #app {

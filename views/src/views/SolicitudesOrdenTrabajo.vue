@@ -1,15 +1,14 @@
 <template>
-  <div id="ordencompra" class="container">
-    <h2 class="container">Orden de Compra</h2>
+  <div id="solicitudes" class="container">
+    <h2 class="container">Solicitudes Órdenes de Trabajo</h2>
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">N° Compra</th>
-          <th scope="col">Código Material</th>
-          <th scope="col">Material</th>
-          <th scope="col">Cantidad a comprar</th>
-          <th scope="col">Estado</th>
-          <th scope="col">Fecha</th>
+          <th scope="col">ID Solicitud</th>
+          <th scope="col">Equipo</th>
+          <th scope="col">Tipo de Mantenimiento</th>
+          <th scope="col">Tipo de Falla</th>
+          <th scope="col">Asignar Fecha</th>
         </tr>
       </thead>
       <tbody> 
@@ -17,24 +16,19 @@
           <th scope="row">{{ item.episode_id }}</th>
           <td>{{ item.episode_id }}</td>
           <td>{{ item.director }}</td>
-          <td><input placeholder="3"></td>
-          <td>En Proceso</td>
           <td>{{ item.director }}</td>
-          <td><div id="checkboxes">
-            <input type="checkbox" value=""/>
-            </div></td>
+          <td><input placeholder="AAAA-MM-DD"></td>
+              <div class = "botonera">
+      <button type="button" class="btn btn-success" style="text-align:left" id="realizar">
+        Aceptar
+      </button>
+      <button type="button" class="btn btn-danger" id="cancelar">
+        Denegar
+      </button>
+    </div>
         </tr>
       </tbody>
     </table>
-    <br>
-    <div class = "botonera">
-      <button type="button" class="btn btn-success" style="text-align:left" id="realizar">
-        Realizar Compra
-      </button>
-      <button type="button" class="btn btn-danger" id="cancelar">
-        Cancelar Compra
-      </button>
-    </div>
     <br>
   </div>
 </template>
@@ -70,6 +64,7 @@ export default {
 <style type="text/css">
   .botonera {
     display: flex;
+    padding-top: 10px;
     justify-content: space-between;
     width: 100%;
   }

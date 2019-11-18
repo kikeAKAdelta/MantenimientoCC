@@ -140,7 +140,7 @@
     }
     .botonera2 {
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
         padding-right: 2%;
         padding-bottom: 2%;
         width: 100%;

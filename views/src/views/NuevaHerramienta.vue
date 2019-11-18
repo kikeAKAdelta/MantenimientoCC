@@ -22,11 +22,12 @@
 
 <script>
 import axios from "axios";
+
 export default {
   name: "Herramientas",
   data() {
     return{
-      Herramienta: {nombre:'', cantidad:''},
+      Herramienta: {idherramienta:'', nombre:'', cantidad:''},
     };
   },
   methods: {
@@ -35,18 +36,20 @@ export default {
         document.getElementById("cantidad").value = "";
     },
     getPosts() {
-          let nuevaHerramienta = JSON.stringify({
+        axios
+        .get("http://localhost:8181/MantenimientoAcc-Back/webresources/herramientas/count")
+        .then(res => {
+           let nuevaHerramienta = {
+            idherramienta: res.data+1,
             nombre: this.Herramienta.nombre,
             cantidad: this.Herramienta.cantidad
-          });
+          }
           console.log(nuevaHerramienta);
           axios.post('http://localhost:8181/MantenimientoAcc-Back/webresources/herramientas/', nuevaHerramienta
           ,{
             headers: {
-              "Access-Control-Allow-Origin":"*",
               "Accept": "application/json",
              'Content-Type': 'application/json',
-              "Authorization": "Bearer token",
               },
               method:"POST"
           })
@@ -56,11 +59,10 @@ export default {
           .catch((error) => {
             console.log(error);
           });
-        },
-      }, mounted() {
-          this.getPosts();
+        });
       }
-    };
+    }
+ };
 </script>
 
 

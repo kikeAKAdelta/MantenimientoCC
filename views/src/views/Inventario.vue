@@ -17,17 +17,17 @@
         </tr>
       </thead>
       <tbody>
-          <tr v-for="item in lists" v-bind:key="item.episode_id">
-          <th scope="row">{{ item.episode_id }}</th>
-          <td>{{ item.title }}</td>
-          <td>{{ item.opening_crawl }}</td>
-          <td>{{ item.director }}</td>
-          <td>{{ item.episode_id }}</td>
-          <td>{{ item.episode_id }}</td>
-          <td>{{ item.director }}</td>
-          <td>{{ item.episode_id }}</td>
-          <td>{{ item.episode_id }}</td>
-          <td>{{ item.episode_id }}</td>
+          <tr v-for="item in lists" v-bind:key="item.codinventario">
+          <th scope="row">{{ item.codinventario }}</th>
+          <td>{{ item.nombre }}</td>
+          <td>{{ item.descripcion }}</td>
+          <td>{{ item.modelo }}</td>
+          <td>{{ item.numeroserie }}</td>
+          <td>{{ item.ano }}</td>
+          <td>{{ item.condicion }}</td>
+          <td>{{ item.ubicacion }}</td>
+          <td>{{ item.vidautil }}</td>
+          <td>{{ item.garantia }}</td>
         </tr>
       </tbody>
     </table>
@@ -49,10 +49,10 @@ export default {
   methods: {
     getFilms() {
       axios
-        .get("https://swapi.co/api/films/")
+        .get("http://localhost:8181/MantenimientoAcc-Back/webresources/inventario")
         .then(res => {
           console.log(res);
-          this.lists = res.data.results;
+          this.lists = res.data;
         })
         .catch(err => {
           console.log(err);

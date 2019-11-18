@@ -7,17 +7,17 @@
               </span>
             <h4 class="card-tittle">AGREGAR NUEVO</h4>
             <div class="employee-form">
-                <input id="nombre" type="text" class="form-control mb-2" placeholder="MATERIAL">
-                <textarea id="descripcion" class="form-control mb-2" cols="30" rows="10" placeholder="DESCRIPCIÓN"></textarea>
-                <select class="form-control mb-2">
-                    <option>PROVEEDOR 1</option>
-                    <option>PROVEEDOR 2</option>
+                <input id="nombre" type="text" class="form-control mb-2" placeholder="MATERIAL" v-model="Material.nombre">
+                <textarea id="descripcion" class="form-control mb-2" cols="30" rows="10" placeholder="DESCRIPCIÓN" v-model="Material.descripcion"></textarea>
+                <select id="sel" class="form-control mb-2">
+                    <option v-for="item in lists" v-bind:key="item.idproveedor">{{ item.idproveedor +" - "+ item.nombre}}</option>
                 </select>
-                <input id="costo" type="text" class="form-control mb-2" placeholder="COSTO">
+                <input id="costo" type="text" class="form-control mb-2" placeholder="COSTO" v-model="Material.costo">
             </div>
           </div>
           <div class = "botonera">
-            <button type="button" class="btn btn-success" style='width:150px; height:50px' id="agregar">
+            <button type="button" class="btn btn-success" style='width:150px; height:50px' id="agregar"
+            @click="getPosts()">
                 Agregar
             </button>
         </div>
@@ -26,15 +26,71 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
+  mounted() {
+    this.getProveedores();
+  },
+  name: "Ordencompra",
+  data() {
+    return{
+      lists: [],
+      Material: {codmaterial:'', nombre:'', descripcion:'', idproveedor:'', cantidad:'', costo:''},
+    };
+  },
   methods: {
     limpiar(){
         document.getElementById("nombre").value = "";
         document.getElementById("descripcion").value = "";
         document.getElementById("costo").value = "";
+
+
+    },
+    getProveedores() {
+      axios
+        .get("http://localhost:8181/MantenimientoAcc-Back/webresources/proveedores")
+        .then(res => {
+          console.log(res);
+          this.lists = res.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getPosts() {
+        axios
+        .get("http://localhost:8181/MantenimientoAcc-Back/webresources/materiales/count")
+        .then(res => {
+           var sel = document.getElementById("sel").value;
+           let prov = parseInt(sel.charAt(0));
+           console.log(prov);
+           let nuevoMaterial = {
+            codmaterial: "MAT-0" +(res.data+1),
+            nombre: this.Material.nombre,
+            descripcion: this.Material.descripcion,
+            //idproveedor: prov,
+            cantidad: 0,
+            costo: parseFloat(this.Material.costo)
+          }
+          console.log(nuevoMaterial);
+          axios.post('http://localhost:8181/MantenimientoAcc-Back/webresources/materiales/', nuevoMaterial
+          ,{
+            headers: {
+              "Accept": "application/json",
+             'Content-Type': 'application/json',
+              },
+              method:"POST"
+          })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        });
+      }
     }
-  }
-};
+ };
 </script>
 
 

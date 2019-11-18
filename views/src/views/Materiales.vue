@@ -13,13 +13,13 @@
         </tr>
       </thead>
       <tbody>
-          <tr v-for="item in lists" v-bind:key="item.episode_id">
-          <th scope="row">{{ item.episode_id }}</th>
-          <td>{{ item.title }}</td>
-          <td>{{ item.opening_crawl }}</td>
-          <td>{{ item.director }}</td>
-          <td>{{ item.episode_id }}</td>
-          <td>{{ item.episode_id }}</td>
+          <tr v-for="item in lists" v-bind:key="item.codmaterial">
+          <th scope="row">{{ item.codmaterial }}</th>
+          <td>{{ item.nombre }}</td>
+          <td>{{ item.descripcion }}</td>
+          <td>{{ item.idproveedor.nombre }}</td>
+          <td>{{ item.cantidad }}</td>
+          <td>{{ item.costo }}</td>
         </tr>
       </tbody>
     </table>
@@ -41,10 +41,10 @@ export default {
   methods: {
     getFilms() {
       axios
-        .get("https://swapi.co/api/films/")
+        .get("http://localhost:8181/MantenimientoAcc-Back/webresources/materiales")
         .then(res => {
           console.log(res);
-          this.lists = res.data.results;
+          this.lists = res.data;
         })
         .catch(err => {
           console.log(err);

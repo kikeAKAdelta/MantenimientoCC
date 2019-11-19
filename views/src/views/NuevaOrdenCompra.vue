@@ -35,7 +35,18 @@ export default {
   data() {
     return{
       lists: [],
-      Material: {codmaterial:'', nombre:'', descripcion:'', idproveedor:'', cantidad:'', costo:''},
+      Material: {codmaterial:'', nombre:'', descripcion:'', proveedor:{
+          idproveedor:'', nombre:'', telefono:''
+      }, cantidad:'', costo:''},
+      OrdenCompra:{
+        idcompra: '', material:{
+          codmaterial:'', nombre:'', descripcion:'', proveedor:{
+          idproveedor:'', nombre:'', telefono:''
+            }, cantidad:'', costo:''
+        }, cantidad:'', status:{ 
+            idstatus:'', estado:''
+        }, fecha:''
+      }
     };
   },
   methods: {
@@ -57,18 +68,23 @@ export default {
           console.log(err);
         });
     },
-    getPosts() {
+    getPosts() {       
         axios
         .get("http://localhost:8181/MantenimientoAcc-Back/webresources/materiales/count")
         .then(res => {
            var sel = document.getElementById("sel").value;
            let prov = parseInt(sel.charAt(0));
            console.log(prov);
+            axios
+            .get("http://localhost:8181/MantenimientoAcc-Back/webresources/proveedores/obtener/"+prov)
+            .then(res2 => {
+            console.log(res2);
+
            let nuevoMaterial = {
             codmaterial: "MAT-0" +(res.data+1),
             nombre: this.Material.nombre,
             descripcion: this.Material.descripcion,
-            //idproveedor: prov,
+            idproveedor: res2.data,
             cantidad: 0,
             costo: parseFloat(this.Material.costo)
           }
@@ -87,8 +103,12 @@ export default {
           .catch((error) => {
             console.log(error);
           });
+        })
+            .catch(err => {
+            console.log(err);
+            });
         });
-      }
+      }, 
     }
  };
 </script>

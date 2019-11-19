@@ -39,11 +39,10 @@ export default {
           idproveedor:'', nombre:'', telefono:''
       }, cantidad:'', costo:''},
       OrdenCompra:{
-        idcompra: '', material:{
-          codmaterial:'', nombre:'', descripcion:'', proveedor:{
-          idproveedor:'', nombre:'', telefono:''
-            }, cantidad:'', costo:''
-        }, cantidad:'', status:{ 
+        idcompra: '', codmaterial:{codmaterial:'', nombre:'', descripcion:'', idproveedor:{
+          idproveedor:'', nombre:'', telefono:''}, cantidad:'', costo:''}, 
+          cantidad:'', 
+        idstatus:{ 
             idstatus:'', estado:''
         }, fecha:''
       }
@@ -68,6 +67,15 @@ export default {
           console.log(err);
         });
     },
+    pgFormatDate(date) {
+  function zeroPad(d) {
+    return ("0" + d).slice(-2)
+  }
+
+  var parsed = new Date(date)
+
+  return [parsed.getUTCFullYear(), zeroPad(parsed.getMonth() + 1), zeroPad(parsed.getDate()), zeroPad(parsed.getHours()), zeroPad(parsed.getMinutes()), zeroPad(parsed.getSeconds())].join(" ");
+},
     getPosts() {       
         axios
         .get("http://localhost:8181/MantenimientoAcc-Back/webresources/materiales/count")
@@ -99,17 +107,61 @@ export default {
           })
           .then((response) => {
             console.log(response);
+             axios
+             //LLENAR ORDEN COMPRA
+        .get("http://localhost:8181/MantenimientoAcc-Back/webresources/ordencompra/count")
+        .then(res => {
+          console.log(nuevoMaterial.codmaterial);
+                  axios
+                    .get("http://localhost:8181/MantenimientoAcc-Back/webresources/status/buscar/1")
+                    .then(res3 => {
+                      axios
+                    .get("http://localhost:8181/MantenimientoAcc-Back/webresources/materiales/obtener/"+nuevoMaterial.codmaterial)
+                    .then(res4 => {
+                                          console.log("HOLIS "+ res3);
+                        let nuevoOrden = {
+                        idcompra: res.data+1,
+                        cantidad: 3,
+                        codmaterial: res4.data,
+                        idstatus: res3.data,
+                        fecha: new Date().toISOString()
+
+                      }
+                    console.log(nuevoOrden);
+                    axios.post('http://localhost:8181/MantenimientoAcc-Back/webresources/ordencompra/', nuevoOrden
+                    ,{
+                      headers: {
+                      "Accept": "application/json",
+                      'Content-Type': 'application/json',
+                      },
+                      method:"POST"
+                  })
+                  .then((response) => {
+                    console.log(response);
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  })
+                    })
+                    .catch((error) => {
+                    console.log(error);
+                  })
+                })
+                .catch((error) => {
+                  console.log(error);
+                })
+              })
+            })
           })
           .catch((error) => {
             console.log(error);
           });
         })
-            .catch(err => {
-            console.log(err);
-            });
-        });
+        .catch(err => {
+           console.log(err);
+          });
       }, 
-    }
+   }
  };
 </script>
 

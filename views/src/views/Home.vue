@@ -1,5 +1,5 @@
 <template>
   <div>
-    <h1>Hello</h1>
+    <h1>Bienvenidos al Sistema de Mantenimiento</h1>
   </div>
 </template>

@@ -75,9 +75,6 @@
         <li class="nav-item">
           <a class="nav-link" href="/calendario">Calendario</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/reportes">Reportes</a>
-        </li>
       </ul>
     </div>
   </nav>

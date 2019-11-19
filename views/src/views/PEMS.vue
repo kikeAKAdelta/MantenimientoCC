@@ -3,13 +3,13 @@
     <h2>Procedimiento Estandar de Mantenimiento</h2>
     <br>
 <div class="row">
-    <div class="col-md-6" v-for="film in films" :key="film.episode_id" style="margin-bottom: 10px;">
+    <div class="col-md-6" v-for="film in films" :key="film.idpem" style="margin-bottom: 10px;">
         <div class="card">
                 <div class="card-body">
-                <h5 class="card-title">PEM# {{film.episode_id}}</h5>
+                <h5 class="card-title">PEM# {{film.idpem}}</h5>
                 <div>
-                    <p><strong>Procedimiento: </strong> {{film.producer}}</p>
-                    <p><strong>Encargado: </strong> {{film.director}}</p>
+                    <p><strong>Procedimiento: </strong> {{film.idprocedimiento.procedimiento}}</p>
+                    <p><strong>Encargado: </strong> {{film.idusuario.nombres+" "+film.idusuario.apellidos}}</p>
                     <p><strong>Tareas: </strong></p>
                     <ul>
                     </ul>
@@ -41,10 +41,10 @@
     methods: {
       getFilms() {
         axios
-          .get("https://swapi.co/api/films/")
+          .get("http://localhost:8181/MantenimientoAcc-Back/webresources/pem")
           .then(res => {
-            //console.log(res);
-            this.films = res.data.results;
+            console.log(res);
+            this.films = res.data;
           })
           .catch(err => {
             console.log(err);

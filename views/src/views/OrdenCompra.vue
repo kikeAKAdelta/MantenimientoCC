@@ -1,64 +1,60 @@
 <template>
   <div id="ordencompra" class="container">
-      <div class="card mb-3">
-          <div class="card-body">
-              <span class="float-right" style="cursor:pointer"
-              @click="limpiar()"><h6>LIMPIAR</h6>
-              </span>
-            <h4 class="card-tittle">AGREGAR NUEVO</h4>
-            <div class="employee-form">
-                <input id="nombre" type="text" class="form-control mb-2" placeholder="MATERIAL" v-model="Material.nombre">
-                <textarea id="descripcion" class="form-control mb-2" cols="30" rows="10" placeholder="DESCRIPCIÓN" v-model="Material.descripcion"></textarea>
-                <select id="sel" class="form-control mb-2">
-                    <option v-for="item in lists" v-bind:key="item.idproveedor">{{ item.idproveedor +" - "+ item.nombre}}</option>
-                </select>
-                <input id="costo" type="text" class="form-control mb-2" placeholder="COSTO" v-model="Material.costo">
-            </div>
-          </div>
-          <div class = "botonera">
-            <button type="button" class="btn btn-success" style='width:150px; height:50px' id="agregar"
-            @click="getPosts()">
-                Agregar
-            </button>
-        </div>
-      </div>
+    <h2 class="container">Orden de Compra</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">N° Compra</th>
+          <th scope="col">Código Material</th>
+          <th scope="col">Material</th>
+          <th scope="col">Cantidad a comprar</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Fecha</th>
+        </tr>
+      </thead>
+      <tbody> 
+        <tr v-for="item in lists" v-bind:key="item.idcompra">
+          <th scope="row">{{ item.idcompra }}</th>
+          <td>{{ item.codmaterial.codmaterial }}</td>
+          <td>{{ item.codmaterial.nombre }}</td>
+          <td><input placeholder="3"></td>
+          <td>{{ item.idstatus.estado }}</td>
+          <td>{{ item.fecha }}</td>
+          <td><div id="checkboxes">
+            <input type="checkbox" value=""/>
+            </div></td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <div class = "botonera">
+      <button type="button" class="btn btn-success" style="text-align:left" id="realizar">
+        Realizar Compra
+      </button>
+      <button type="button" class="btn btn-danger" id="cancelar">
+        Cancelar Compra
+      </button>
+    </div>
+    <br>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 export default {
+  name: "Peliculas",
   mounted() {
-    this.getProveedores();
+    this.getFilms();
   },
-  name: "Ordencompra",
   data() {
-    return{
-      lists: [],
-      Material: {codmaterial:'', nombre:'', descripcion:'', proveedor:{
-          idproveedor:'', nombre:'', telefono:''
-      }, cantidad:'', costo:''},
-      OrdenCompra:{
-        idcompra: '', codmaterial:{codmaterial:'', nombre:'', descripcion:'', idproveedor:{
-          idproveedor:'', nombre:'', telefono:''}, cantidad:'', costo:''}, 
-          cantidad:'', 
-        idstatus:{ 
-            idstatus:'', estado:''
-        }, fecha:''
-      }
+    return {
+      lists: []
     };
   },
   methods: {
-    limpiar(){
-        document.getElementById("nombre").value = "";
-        document.getElementById("descripcion").value = "";
-        document.getElementById("costo").value = "";
-
-
-    },
-    getProveedores() {
+    getFilms() {
       axios
-        .get("http://localhost:8181/MantenimientoAcc-Back/webresources/proveedores")
+        .get("http://localhost:8181/MantenimientoAcc-Back/webresources/ordencompra/")
         .then(res => {
           console.log(res);
           this.lists = res.data;
@@ -66,118 +62,16 @@ export default {
         .catch(err => {
           console.log(err);
         });
-    },
-    pgFormatDate(date) {
-  function zeroPad(d) {
-    return ("0" + d).slice(-2)
+    }
   }
-
-  var parsed = new Date(date)
-
-  return [parsed.getUTCFullYear(), zeroPad(parsed.getMonth() + 1), zeroPad(parsed.getDate()), zeroPad(parsed.getHours()), zeroPad(parsed.getMinutes()), zeroPad(parsed.getSeconds())].join(" ");
-},
-    getPosts() {       
-        axios
-        .get("http://localhost:8181/MantenimientoAcc-Back/webresources/materiales/count")
-        .then(res => {
-           var sel = document.getElementById("sel").value;
-           let prov = parseInt(sel.charAt(0));
-           console.log(prov);
-            axios
-            .get("http://localhost:8181/MantenimientoAcc-Back/webresources/proveedores/obtener/"+prov)
-            .then(res2 => {
-            console.log(res2);
-
-           let nuevoMaterial = {
-            codmaterial: "MAT-0" +(res.data+1),
-            nombre: this.Material.nombre,
-            descripcion: this.Material.descripcion,
-            idproveedor: res2.data,
-            cantidad: 0,
-            costo: parseFloat(this.Material.costo)
-          }
-          console.log(nuevoMaterial);
-          axios.post('http://localhost:8181/MantenimientoAcc-Back/webresources/materiales/', nuevoMaterial
-          ,{
-            headers: {
-              "Accept": "application/json",
-             'Content-Type': 'application/json',
-              },
-              method:"POST"
-          })
-          .then((response) => {
-            console.log(response);
-             axios
-             //LLENAR ORDEN COMPRA
-        .get("http://localhost:8181/MantenimientoAcc-Back/webresources/ordencompra/count")
-        .then(res => {
-          console.log(nuevoMaterial.codmaterial);
-                  axios
-                    .get("http://localhost:8181/MantenimientoAcc-Back/webresources/status/buscar/1")
-                    .then(res3 => {
-                      axios
-                    .get("http://localhost:8181/MantenimientoAcc-Back/webresources/materiales/obtener/"+nuevoMaterial.codmaterial)
-                    .then(res4 => {
-                                          console.log("HOLIS "+ res3);
-                        let nuevoOrden = {
-                        idcompra: res.data+1,
-                        cantidad: 3,
-                        codmaterial: res4.data,
-                        idstatus: res3.data,
-                        fecha: new Date().toISOString()
-
-                      }
-                    console.log(nuevoOrden);
-                    axios.post('http://localhost:8181/MantenimientoAcc-Back/webresources/ordencompra/', nuevoOrden
-                    ,{
-                      headers: {
-                      "Accept": "application/json",
-                      'Content-Type': 'application/json',
-                      },
-                      method:"POST"
-                  })
-                  .then((response) => {
-                    console.log(response);
-                  })
-                  .catch((error) => {
-                    console.log(error);
-                  })
-                    })
-                    .catch((error) => {
-                    console.log(error);
-                  })
-                })
-                .catch((error) => {
-                  console.log(error);
-                })
-              })
-            })
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        })
-        .catch(err => {
-           console.log(err);
-          });
-      }, 
-   }
- };
+};
 </script>
 
-
 <style type="text/css">
-    .botonera {
-        display: flex;
-        justify-content: flex-end;
-        padding-right: 2%;
-        padding-bottom: 2%;
-        width: 100%;
-    }
-    h6 {
-        font-size: 15px;
-    }
-    .agregar{
-        width: 30%;
-    }
+  .botonera {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
 </style>
+

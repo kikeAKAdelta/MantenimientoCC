@@ -12,11 +12,11 @@
         </tr>
       </thead>
       <tbody> 
-        <tr v-for="item in lists" v-bind:key="item.episode_id">
-          <th scope="row">{{ item.episode_id }}</th>
-          <td>{{ item.episode_id }}</td>
-          <td>{{ item.director }}</td>
-          <td>{{ item.director }}</td>
+        <tr v-for="item in lists" v-bind:key="item.idsolicitud">
+          <th scope="row">{{ item.idsolicitud }}</th>
+          <td>{{ item.codinventario.nombre }}</td>
+          <td>{{ item.idpromant.descripcion }}</td>
+          <td>{{ item.tipofalla }}</td>
           <td><input placeholder="AAAA-MM-DD"></td>
               <div class = "botonera">
       <button type="button" class="btn btn-success" style="text-align:left" id="realizar">
@@ -48,7 +48,7 @@ export default {
   methods: {
     getFilms() {
       axios
-        .get("https://swapi.co/api/films/")
+        .get("http://localhost:8181/MantenimientoAcc-Back/webresources/solicitudordentrabajo/")
         .then(res => {
           console.log(res);
           this.lists = res.data.results;
